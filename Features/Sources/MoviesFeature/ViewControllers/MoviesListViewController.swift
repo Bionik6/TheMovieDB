@@ -7,7 +7,6 @@ enum Section {
   case main
 }
 
-
 class MoviesListViewController: NiblessViewController {
   var cancellables = Set<AnyCancellable>()
   private var model: MoviesListViewModel
@@ -54,7 +53,7 @@ extension MoviesListViewController {
     
     let groupSize = NSCollectionLayoutSize(
       widthDimension: .fractionalWidth(1.0),
-      heightDimension: .estimated(100)
+      heightDimension: .estimated(120)
     )
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
@@ -95,5 +94,13 @@ extension MoviesListViewController {
 extension MoviesListViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     // collectionView.deselectItem(at: indexPath, animated: true)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    if isLoadingLastIndexPath(indexPath) { model.fetchMoviesAtNextPage() }
+  }
+  
+  private func isLoadingLastIndexPath(_ indexPath: IndexPath) -> Bool {
+    return indexPath.item == model.movies.count
   }
 }

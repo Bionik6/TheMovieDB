@@ -29,4 +29,8 @@ final class MoviesListViewModel: ObservableObject {
       self.error = error as? LocalizedError
     }
   }
+  
+  func fetchMoviesAtNextPage() {
+    currentPage += 1
+  }
 }
