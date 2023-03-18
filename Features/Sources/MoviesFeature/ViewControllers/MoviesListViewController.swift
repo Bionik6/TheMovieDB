@@ -13,8 +13,8 @@ public protocol MoviesListViewControllerDelegate: AnyObject {
 }
 
 public class MoviesListViewController: NiblessViewController {
-  var cancellables = Set<AnyCancellable>()
-  private var model: MoviesListViewModel
+  private var cancellables = Set<AnyCancellable>()
+  private let model: MoviesListViewModel
   
   private var collectionView: UICollectionView! = nil
   public weak var delegate: MoviesListViewControllerDelegate?
@@ -40,6 +40,8 @@ public class MoviesListViewController: NiblessViewController {
   }
   
   private func setupObservers() {
+    handleLoading(model.$isLoading, cancellables: &cancellables)
+    handleErrorIfAny(model.$error, cancellables: &cancellables)
     model.$movies
       .receive(on: DispatchQueue.main)
       .sink { [weak self] movies in
@@ -49,32 +51,6 @@ public class MoviesListViewController: NiblessViewController {
         self.currentSnapshot.appendItems(movies, toSection: .main)
         self.dataSource.apply(self.currentSnapshot, animatingDifferences: true)
       }.store(in: &cancellables)
-    
-    model.$isLoading
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] isLoading in
-        guard let self else { return }
-        if isLoading { self.showLoadingIndicator() }
-        if !isLoading { self.hideLoadingIndicator() }
-      }.store(in: &cancellables)
-    
-    model.$error
-      .sink { [weak self] error in
-        guard let error, let self else { return }
-        self.show(error: error)
-      }.store(in: &cancellables)
-  }
-  
-  private func showLoadingIndicator() {
-    MovieDBActivityIndicator.showAdded(
-      to: view,
-      title: "Please wait",
-      message: "Please wait while we retrieve the list of breeds."
-    )
-  }
-  
-  private func hideLoadingIndicator() {
-    MovieDBActivityIndicator.hide(for: view)
   }
 }
 
@@ -111,7 +87,7 @@ extension MoviesListViewController {
   
   func configureDataSource() {
     let cellRegistration = UICollectionView.CellRegistration<MovieCollectionViewCell, Movie> { (cell, indexPath, movie) in
-     let presenter = MoviePresenter(movie: movie)
+      let presenter = MoviePresenter(movie: movie)
       presenter.configure(with: cell)
     }
     

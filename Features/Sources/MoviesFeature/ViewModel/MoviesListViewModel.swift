@@ -6,7 +6,7 @@ import Foundation
 public final class MoviesListViewModel: ObservableObject {
   private let useCase: GetMoviesUseCase
   
-  var currentPage: Int = 1 {
+  private var currentPage: Int = 1 {
     didSet { Task { await fetchMovies() } }
   }
   

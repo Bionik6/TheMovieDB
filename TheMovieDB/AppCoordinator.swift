@@ -5,15 +5,14 @@ import MoviesFeature
 
 
 final class AppCoordinator {
-  
   private let navigationController: UINavigationController
   
   private lazy var moviesListVC: MoviesListViewController = {
     let useCase = GetMoviesUseCase(repository: DefaultMovieRepository())
     let model = MoviesListViewModel(useCase: useCase)
-    let viewController = MoviesListViewController(model: model)
-    viewController.delegate = self
-    return viewController
+    let vc = MoviesListViewController(model: model)
+    vc.delegate = self
+    return vc
   }()
   
   init(navigationController: UINavigationController) {
@@ -28,8 +27,9 @@ final class AppCoordinator {
 
 extension AppCoordinator: MoviesListViewControllerDelegate {
   func didSelect(movie: Movie) {
-    let vc = UIViewController()
-    vc.view.backgroundColor = .red
+    let useCase = GetMovieDetailsUseCase(movie: movie, repository: DefaultMovieRepository())
+    let model = MovieDetailsViewModel(useCase: useCase)
+    let vc = MovieDetailsViewController(model: model)
     navigationController.pushViewController(vc, animated: true)
   }
 }
