@@ -3,7 +3,7 @@ import Combine
 import Foundation
 
 
-final class MoviesListViewModel: ObservableObject {
+public final class MoviesListViewModel: ObservableObject {
   private let useCase: GetMoviesUseCase
   
   var currentPage: Int = 1 {
@@ -14,7 +14,7 @@ final class MoviesListViewModel: ObservableObject {
   @Published var movies: [Movie] = []
   @Published var isLoading: Bool = false
   
-  init(useCase: GetMoviesUseCase) {
+  public init(useCase: GetMoviesUseCase) {
     self.useCase = useCase
   }
   

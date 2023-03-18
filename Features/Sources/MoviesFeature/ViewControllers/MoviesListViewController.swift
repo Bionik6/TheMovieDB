@@ -3,24 +3,30 @@ import Domain
 import Combine
 import DesignSystem
 
-enum Section {
+
+public enum Section {
   case main
 }
 
-class MoviesListViewController: NiblessViewController {
+public protocol MoviesListViewControllerDelegate: AnyObject {
+  func didSelect(movie: Movie)
+}
+
+public class MoviesListViewController: NiblessViewController {
   var cancellables = Set<AnyCancellable>()
   private var model: MoviesListViewModel
   
   private var collectionView: UICollectionView! = nil
+  public weak var delegate: MoviesListViewControllerDelegate?
   private var dataSource: UICollectionViewDiffableDataSource<Section, Movie>! = nil
   private var currentSnapshot: NSDiffableDataSourceSnapshot<Section, Movie>! = nil
   
-  init(model: MoviesListViewModel) {
+  public init(model: MoviesListViewModel) {
     self.model = model
     super.init()
   }
   
-  override func viewDidLoad() {
+  public override func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.title = "Movies"
     configureHierarchy()
@@ -92,11 +98,12 @@ extension MoviesListViewController {
 
 
 extension MoviesListViewController: UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     // collectionView.deselectItem(at: indexPath, animated: true)
+    delegate?.didSelect(movie: model.movies[indexPath.item])
   }
   
-  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+  public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
     if isLoadingLastIndexPath(indexPath) { model.fetchMoviesAtNextPage() }
   }
   
