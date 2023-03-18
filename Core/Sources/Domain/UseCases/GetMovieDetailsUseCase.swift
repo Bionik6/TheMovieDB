@@ -12,5 +12,4 @@ public struct GetMovieDetailsUseCase {
   public func execute() async throws -> MovieDetails {
     return try await repository.getMovieDetails(for: movie)
   }
-  
 }
