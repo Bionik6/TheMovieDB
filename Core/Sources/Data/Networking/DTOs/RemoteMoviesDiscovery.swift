@@ -7,6 +7,10 @@ public struct RemoteMoviesDiscovery: Decodable {
   public let results: [RemoteMovie]
   public let totalPages: Int
   public let totalResults: Int
+  
+  public var toDomain: [Movie] {
+    results.map { $0.toDomain }
+  }
 }
 
 
@@ -25,4 +29,23 @@ public struct RemoteMovie: Decodable {
   public let video: Bool
   public let voteAverage: Double
   public let voteCount: Int
+  
+  public var toDomain: Movie {
+    Movie(
+      id: id,
+      adult: adult,
+      video: video,
+      title: title,
+      voteCount: voteCount,
+      genreIds: genreIds,
+      overview: overview,
+      releaseDate: releaseDate,
+      popularity: popularity,
+      posterPath: posterPath,
+      voteAverage: voteAverage,
+      backdropPath: backdropPath,
+      originalTitle: originalTitle,
+      originalLanguage: originalLanguage
+    )
+  }
 }

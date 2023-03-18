@@ -23,8 +23,12 @@ public struct MovieDetails: Identifiable {
   public let backdropPath: String
   public let originalTitle: String
   public let originalLanguage: String
-  public let spokenLanguages: [SpokenLanguage]
-  public let productionCountries: [ProductionCountry]
+  
+  public var imageURL: URL? {
+    let urlString = "https://image.tmdb.org/t/p/w500\(posterPath)"
+    guard let url = URL(string: urlString) else { return nil }
+    return url
+  }
   
   public init(
     id: Int,
@@ -47,9 +51,7 @@ public struct MovieDetails: Identifiable {
     voteAverage: Double,
     backdropPath: String,
     originalTitle: String,
-    originalLanguage: String,
-    spokenLanguages: [SpokenLanguage],
-    productionCountries: [ProductionCountry]
+    originalLanguage: String
   ) {
     self.id = id
     self.adult = adult
@@ -72,32 +74,6 @@ public struct MovieDetails: Identifiable {
     self.backdropPath = backdropPath
     self.originalTitle = originalTitle
     self.originalLanguage = originalLanguage
-    self.spokenLanguages = spokenLanguages
-    self.productionCountries = productionCountries
-  }
-}
-
-
-public struct ProductionCountry {
-  public let iso31661: String
-  public let name: String
-  
-  public init(iso31661: String, name: String) {
-    self.iso31661 = iso31661
-    self.name = name
-  }
-}
-
-
-public struct SpokenLanguage {
-  public let englishName: String
-  public let iso6391: String
-  public let name: String
-  
-  public init(englishName: String, iso6391: String, name: String) {
-    self.englishName = englishName
-    self.iso6391 = iso6391
-    self.name = name
   }
 }
 
