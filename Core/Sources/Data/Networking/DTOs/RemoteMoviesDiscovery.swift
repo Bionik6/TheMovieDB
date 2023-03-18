@@ -9,6 +9,7 @@ public struct RemoteMoviesDiscovery: Decodable {
   public let totalResults: Int
 }
 
+
 public struct RemoteMovie: Decodable {
   public let adult: Bool
   public let backdropPath: String

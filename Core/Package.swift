@@ -22,7 +22,7 @@ let package = Package(
     ),
     .target(
       name: "Data",
-      dependencies: []
+      dependencies: ["Domain"]
     ),
   ]
 )
