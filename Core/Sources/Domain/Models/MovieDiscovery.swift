@@ -9,7 +9,7 @@ public struct MoviesDiscovery {
 }
 
 
-public struct Movie: Identifiable {
+public struct Movie: Identifiable, Hashable {
   public let id: Int
   public let adult: Bool
   public let video: Bool
@@ -24,4 +24,10 @@ public struct Movie: Identifiable {
   public let backdropPath: String
   public let originalTitle: String
   public let originalLanguage: String
+  
+  public var imageURL: URL? {
+    let urlString = "https://image.tmdb.org/t/p/w500\(posterPath)"
+    guard let url = URL(string: urlString) else { return nil }
+    return url
+  }
 }

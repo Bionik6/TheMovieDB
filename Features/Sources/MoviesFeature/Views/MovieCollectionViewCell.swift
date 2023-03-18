@@ -3,15 +3,17 @@ import DesignSystem
 
 
 final class MovieCollectionViewCell: UICollectionViewCell {
-  private lazy var imageView: UIImageView = {
+  static let resuableIdentifier = "movie-cell-reuse-identifier"
+  
+  lazy var imageView: UIImageView = {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
     imageView.layer.cornerRadius = 8
-    imageView.clipsToBounds = true 
+    imageView.clipsToBounds = true
     return imageView
   }()
   
-  private lazy var titleLabel: UILabel = {
+  lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "Lorem Ipsum Dolor sit amit"
     label.font = UIFont.preferredFont(forTextStyle: .title3, compatibleWith: .current)
@@ -19,7 +21,7 @@ final class MovieCollectionViewCell: UICollectionViewCell {
     return label
   }()
   
-  private lazy var yearLabel: UILabel = {
+  lazy var yearLabel: UILabel = {
     let label = UILabel()
     label.text = "2023"
     label.font = UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: .current)
