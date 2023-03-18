@@ -28,14 +28,18 @@ public class MoviesListViewController: NiblessViewController {
   
   public override func viewDidLoad() {
     super.viewDidLoad()
-    navigationItem.title = "Movies"
+    setupView()
     configureHierarchy()
     configureDataSource()
     setupObservers()
     Task { await model.fetchMovies() }
   }
   
-  func setupObservers() {
+  private func setupView() {
+    navigationItem.title = "Movies"
+  }
+  
+  private func setupObservers() {
     model.$movies
       .receive(on: DispatchQueue.main)
       .sink { [weak self] movies in
@@ -45,6 +49,32 @@ public class MoviesListViewController: NiblessViewController {
         self.currentSnapshot.appendItems(movies, toSection: .main)
         self.dataSource.apply(self.currentSnapshot, animatingDifferences: true)
       }.store(in: &cancellables)
+    
+    model.$isLoading
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] isLoading in
+        guard let self else { return }
+        if isLoading { self.showLoadingIndicator() }
+        if !isLoading { self.hideLoadingIndicator() }
+      }.store(in: &cancellables)
+    
+    model.$error
+      .sink { [weak self] error in
+        guard let error, let self else { return }
+        self.show(error: error)
+      }.store(in: &cancellables)
+  }
+  
+  private func showLoadingIndicator() {
+    MovieDBActivityIndicator.showAdded(
+      to: view,
+      title: "Please wait",
+      message: "Please wait while we retrieve the list of breeds."
+    )
+  }
+  
+  private func hideLoadingIndicator() {
+    MovieDBActivityIndicator.hide(for: view)
   }
 }
 
@@ -99,15 +129,14 @@ extension MoviesListViewController {
 
 extension MoviesListViewController: UICollectionViewDelegate {
   public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    // collectionView.deselectItem(at: indexPath, animated: true)
     delegate?.didSelect(movie: model.movies[indexPath.item])
   }
   
   public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    if isLoadingLastIndexPath(indexPath) { model.fetchMoviesAtNextPage() }
+    if shouldFetchNextPage(indexPath) { model.fetchMoviesAtNextPage() }
   }
   
-  private func isLoadingLastIndexPath(_ indexPath: IndexPath) -> Bool {
-    return indexPath.item == model.movies.count
+  private func shouldFetchNextPage(_ indexPath: IndexPath) -> Bool {
+    return indexPath.item == model.movies.count - 2
   }
 }
