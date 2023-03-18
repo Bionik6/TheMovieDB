@@ -1,8 +1,16 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ibrahima Ciss on 18/03/2023.
-//
-
 import Foundation
+
+public struct GetMovieDetailsUseCase {
+  private let movie: Movie
+  private let repository: MovieRepository
+  
+  public init(movie: Movie, repository: MovieRepository) {
+    self.movie = movie
+    self.repository = repository
+  }
+  
+  public func execute() async throws -> MovieDetails {
+    return try await repository.getMovieDetails(for: movie)
+  }
+  
+}
