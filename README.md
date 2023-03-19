@@ -3,7 +3,7 @@
 ![App Screenshot](images/screenshot.png "App Screenshot")
 
 ## Description:
-This iOS app lets users view recent transactions and move the spare amount to a saving goal. <br>
+This iOS app let you browser movies from the MovieDB API and view the movie details<br>
 Developer: **[Ibrahima CISS](https://github.com/Bionik6)**
 
 ## Prerequisites:
