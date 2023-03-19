@@ -56,7 +56,7 @@ public class MoviesListViewController: NiblessViewController {
 
 
 extension MoviesListViewController {
-  func createLayout() -> UICollectionViewLayout {
+  private func createLayout() -> UICollectionViewLayout {
     let itemSize = NSCollectionLayoutSize(
       widthDimension: .fractionalWidth(1.0),
       heightDimension: .fractionalHeight(1.0)
@@ -76,7 +76,7 @@ extension MoviesListViewController {
     return layout
   }
   
-  func configureHierarchy() {
+  private func configureHierarchy() {
     collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
     collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     collectionView.backgroundColor = .systemBackground
@@ -84,7 +84,7 @@ extension MoviesListViewController {
     view.addSubview(collectionView)
   }
   
-  func configureDataSource() {
+  private func configureDataSource() {
     let cellRegistration = UICollectionView.CellRegistration<MovieCollectionViewCell, Movie> { (cell, indexPath, movie) in
       let presenter = MoviePresenter(movie: movie)
       presenter.configure(with: cell)
@@ -112,6 +112,6 @@ extension MoviesListViewController: UICollectionViewDelegate {
   }
   
   private func shouldFetchNextPage(_ indexPath: IndexPath) -> Bool {
-    return indexPath.item == model.movies.count - 2
+    indexPath.item == model.movies.count - 2
   }
 }

@@ -15,7 +15,7 @@ final class MovieDetailsView: NiblessView {
     let label = UILabel()
     label.textAlignment = .center
     label.numberOfLines = 0
-    label.font = UIFont.preferredFont(forTextStyle: .title2)
+    label.font = UIFont.preferredFont(forTextStyle: .title1)
     label.textColor = UIColor.label
     return label
   }()
@@ -45,7 +45,7 @@ final class MovieDetailsView: NiblessView {
   private func setupConstraints() {
     add(subviews: [imageView, titleLabel, yearLabel, descriptionLabel])
     imageView
-      .size(width: 160, height: 180)
+      .size(width: 180, height: 220)
       .centerX(to: self)
       .top(with: safeAreaLayoutGuide.topAnchor, value: 16)
     titleLabel
