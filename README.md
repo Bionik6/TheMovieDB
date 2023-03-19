@@ -3,7 +3,7 @@
 ![App Screenshot](images/screenshot.png "App Screenshot")
 
 ## Description:
-This iOS app let you browser movies from the MovieDB API and view the movie details<br>
+This iOS app lets you browse movies from the MovieDB API and view their details<br>
 Developer: **[Ibrahima CISS](https://github.com/Bionik6)**
 
 ## Prerequisites:
