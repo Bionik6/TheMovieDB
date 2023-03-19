@@ -10,22 +10,8 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
-  var window: UIWindow?
-  var coordinator: AppCoordinator?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    
-    self.window = UIWindow(frame: UIScreen.main.bounds)
-    guard let window else { return false }
-    
-    let navigationController = UINavigationController()
-    navigationController.navigationBar.prefersLargeTitles = false
-    
-    coordinator = AppCoordinator(navigationController: navigationController)
-    coordinator?.start()
-    
-    window.rootViewController = navigationController
-    window.makeKeyAndVisible()
     
     return true
   }

@@ -15,12 +15,12 @@ public struct DefaultMovieRepository: MovieRepository {
     return result.toDomain
   }
   
-  public func getMovieDetails(for movie: Domain.Movie) async throws -> Domain.MovieDetails {
+  public func getMovieDetails(for movie: Domain.Movie) async throws -> Domain.Movie {
     guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else {
       throw DomainError.APIKeyNotSet
     }
     let request = Request(path: "movie/\(movie.id)", params: .url(["api_key": apiKey]))
-    let result: RemoteMovieDetails = try await NetNet.execute(request: request)
+    let result: RemoteMovie = try await NetNet.execute(request: request)
     return result.toDomain
   }
   

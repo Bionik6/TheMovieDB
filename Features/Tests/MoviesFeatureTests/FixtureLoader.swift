@@ -21,7 +21,7 @@ public struct FixtureLoader {
     loadFixture(filename: "movies_list.json")
   }
   
-  public static func loadMovieDetails() -> RemoteMovieDetails {
+  public static func loadMovieDetails() -> RemoteMovie {
     loadFixture(filename: "movie_details.json")
   }
 }

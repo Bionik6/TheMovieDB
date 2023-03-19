@@ -6,7 +6,7 @@ import Foundation
 public final class MovieDetailsViewModel: ObservableObject {
   private let useCase: GetMovieDetailsUseCase
   
-  @Published var movie: MovieDetails?
+  @Published var movie: Movie?
   @Published var error: LocalizedError?
   @Published var isLoading: Bool = false
   

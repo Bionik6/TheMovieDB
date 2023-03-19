@@ -9,7 +9,7 @@ struct MockHappyPathMovieRepository: MovieRepository {
     return FixtureLoader.loadMoviesList().toDomain
   }
   
-  func getMovieDetails(for movie: Domain.Movie) async throws -> Domain.MovieDetails {
+  func getMovieDetails(for movie: Domain.Movie) async throws -> Domain.Movie {
     return FixtureLoader.loadMovieDetails().toDomain
   }
 }
@@ -20,7 +20,7 @@ struct MockErrorMovieRepository: MovieRepository {
     throw NetworkError.noInternetConnectivity.toDomain
   }
   
-  func getMovieDetails(for movie: Domain.Movie) async throws -> Domain.MovieDetails {
+  func getMovieDetails(for movie: Domain.Movie) async throws -> Domain.Movie {
     throw NetworkError.noInternetConnectivity.toDomain
   }
 }
@@ -31,12 +31,12 @@ struct MockEmptyMovieRepository: MovieRepository {
     return []
   }
   
-  func getMovieDetails(for movie: Domain.Movie) async throws -> Domain.MovieDetails {
+  func getMovieDetails(for movie: Domain.Movie) async throws -> Domain.Movie {
     return FixtureLoader.loadMovieDetails().toDomain
   }
 }
 
 
 extension Movie {
-  static let sample = Movie(id: 1, adult: true, video: true, title: "", voteCount: 0, genreIds: [], overview: "", releaseDate: .now, popularity: 0, posterPath: "", voteAverage: 0, backdropPath: "", originalTitle: "", originalLanguage: "")
+  static let sample = Movie(id: 1, title: "", overview: "", releaseDate: .now, posterPath: "")
 }

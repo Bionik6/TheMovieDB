@@ -7,10 +7,10 @@ import DesignSystem
 final class MovieDetailsPresenter {
   private var cancellable: AnyCancellable?
   
-  let movieDetails: MovieDetails
+  let movie: Movie
   
-  init(movieDetails: MovieDetails) {
-    self.movieDetails = movieDetails
+  init(movie: Movie) {
+    self.movie = movie
   }
   
   func configure(with view: MovieDetailsView) {
@@ -18,9 +18,9 @@ final class MovieDetailsPresenter {
       .sink { [unowned self]
         image in self.showImage(image: image, for: view)
       }
-    view.titleLabel.text = movieDetails.title
-    view.yearLabel.text = movieDetails.releaseDate.formatted(date: .abbreviated, time: .omitted)
-    view.descriptionLabel.text = movieDetails.overview
+    view.titleLabel.text = movie.title
+    view.yearLabel.text = movie.releaseDate.formatted(date: .abbreviated, time: .omitted)
+    view.descriptionLabel.text = movie.overview
   }
   
   private func showImage(image: UIImage?, for view: MovieDetailsView) {
@@ -30,7 +30,7 @@ final class MovieDetailsPresenter {
   private func loadImage(for view: MovieDetailsView) -> AnyPublisher<UIImage?, Never> {
     return Just(view.imageView)
       .flatMap({ poster -> AnyPublisher<UIImage?, Never> in
-        guard let imageURL = self.movieDetails.imageURL else { return Just(nil).eraseToAnyPublisher() }
+        guard let imageURL = self.movie.imageURL else { return Just(nil).eraseToAnyPublisher() }
         return ImageLoader.shared.loadImage(from: imageURL)
       })
       .eraseToAnyPublisher()

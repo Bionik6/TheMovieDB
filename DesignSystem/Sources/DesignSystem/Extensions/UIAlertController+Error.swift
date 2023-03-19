@@ -17,9 +17,8 @@ extension UIAlertController {
 }
 
 extension UIViewController {
-  public func show(error: Error) {
-    guard let domainError = error as? DomainError else { return }
-    let alertController = UIAlertController(domainError, preferredStyle: .alert)
+  public func show(error: LocalizedError) {
+    let alertController = UIAlertController(error, preferredStyle: .alert)
     let action = UIAlertAction(title: "OK", style: .default)
     alertController.addAction(action)
     present(alertController, animated: true)

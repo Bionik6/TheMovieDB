@@ -40,8 +40,8 @@ public class MoviesListViewController: NiblessViewController {
   }
   
   private func setupObservers() {
-    handleLoading(model.$isLoading, cancellables: &cancellables)
     handleErrorIfAny(model.$error, cancellables: &cancellables)
+    handleLoading(model.$isLoading, cancellables: &cancellables)
     model.$movies
       .receive(on: DispatchQueue.main)
       .sink { [weak self] movies in
@@ -70,7 +70,6 @@ extension MoviesListViewController {
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
     let section = NSCollectionLayoutSection(group: group)
-    // section.interGroupSpacing = 80
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
     
     let layout = UICollectionViewCompositionalLayout(section: section)

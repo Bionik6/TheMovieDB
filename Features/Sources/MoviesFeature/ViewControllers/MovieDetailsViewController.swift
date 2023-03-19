@@ -30,13 +30,13 @@ public class MovieDetailsViewController: NiblessViewController {
   }
   
   private func setupObservers() {
-    handleLoading(model.$isLoading, cancellables: &cancellables)
     handleErrorIfAny(model.$error, cancellables: &cancellables)
+    handleLoading(model.$isLoading, cancellables: &cancellables)
     model.$movie
       .receive(on: DispatchQueue.main)
-      .sink { [weak self] movieDetails in
-        guard let self, let movieDetails else { return }
-        let presenter = MovieDetailsPresenter(movieDetails: movieDetails)
+      .sink { [weak self] movie in
+        guard let self, let movie else { return }
+        let presenter = MovieDetailsPresenter(movie: movie)
         presenter.configure(with: self.view as! MovieDetailsView)
       }.store(in: &cancellables)
   }

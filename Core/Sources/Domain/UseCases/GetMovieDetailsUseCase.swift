@@ -9,7 +9,7 @@ public struct GetMovieDetailsUseCase {
     self.repository = repository
   }
   
-  public func execute() async throws -> MovieDetails {
+  public func execute() async throws -> Movie {
     return try await repository.getMovieDetails(for: movie)
   }
 }
