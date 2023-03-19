@@ -35,7 +35,7 @@ final class MoviesListViewModelTests: XCTestCase {
     XCTAssertEqual(sut.movies.count, FixtureLoader.loadMoviesList().toDomain.count)
   }
   
-  func test_mutating_sut_page_fetches_movies_list() async throws {
+  func test_mutating_sut_currentPage_fetches_movies_list() async throws {
     let repo = MockHappyPathMovieRepository()
     let useCase = GetMoviesUseCase(repository: repo)
     let sut = MoviesListViewModel(useCase: useCase)
@@ -49,6 +49,7 @@ final class MoviesListViewModelTests: XCTestCase {
     sut.fetchMoviesAtNextPage()
     
     let duration = Duration(secondsComponent: 0, attosecondsComponent: Int64(10_000_000_000_000_000))
+    
     try await Task.sleep(for: duration)
     
     XCTAssertEqual(sut.movies.count, 40)
