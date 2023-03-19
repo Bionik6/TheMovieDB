@@ -15,7 +15,6 @@ let package = Package(
       name: "DesignSystem",
       dependencies: [
         .product(name: "Domain", package: "Core"),
-        .product(name: "Utils", package: "Core"),
       ],
       resources: [.process("Resources")]
     ),

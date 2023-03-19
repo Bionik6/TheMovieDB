@@ -18,10 +18,14 @@ let package = Package(
       name: "MoviesFeature",
       dependencies: [
         .product(name: "Data", package: "Core"),
-        .product(name: "Utils", package: "Core"),
         .product(name: "Domain", package: "Core"),
         .product(name: "DesignSystem", package: "DesignSystem"),
       ]
     ),
+    .testTarget(
+      name: "MoviesFeatureTests",
+      dependencies: ["MoviesFeature"],
+      exclude: ["Fixtures/"]
+    )
   ]
 )

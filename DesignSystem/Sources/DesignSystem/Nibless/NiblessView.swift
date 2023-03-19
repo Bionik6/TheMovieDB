@@ -1,9 +1,3 @@
-/**
- *  SuperBreed
- *  NiblessView.swift
- *  Copyright (c) Ibrahima Ciss 2022
- */
-
 import UIKit
 
 open class NiblessView: UIView {

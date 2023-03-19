@@ -1,7 +1,7 @@
 import Foundation
 
 extension JSONDecoder {
-  static var live: JSONDecoder {
+  public static var live: JSONDecoder {
     let decoder = JSONDecoder()
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"

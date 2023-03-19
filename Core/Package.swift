@@ -6,7 +6,6 @@ let package = Package(
   platforms: [.iOS(.v16)],
   products: [
     .library(name: "Data", targets: ["Data"]),
-    .library(name: "Utils", targets: ["Utils"]),
     .library(name: "Domain", targets: ["Domain"]),
   ],
   dependencies: [
@@ -14,10 +13,6 @@ let package = Package(
   targets: [
     .target(
       name: "Domain",
-      dependencies: ["Utils"]
-    ),
-    .target(
-      name: "Utils",
       dependencies: []
     ),
     .target(
