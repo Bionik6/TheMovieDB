@@ -6,11 +6,6 @@
 This iOS app lets you browse movies from the MovieDB API and view their details<br>
 Developer: **[Ibrahima CISS](https://github.com/Bionik6)**
 
-## Prerequisites:
-* Create first an application in the Starling API Web dashboard
-* Generate an authentication token for later use
-* Generate some feed items for the round up
-
 ## Usage:
 * Download the project
 * Open it in Xcode
