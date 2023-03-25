@@ -9,7 +9,7 @@ Developer: **[Ibrahima CISS](https://github.com/Bionik6)**
 ## Usage:
 * Download the project
 * Open it in Xcode
-* Create a *`Config.xcconfig`* file and place it in the root directory (TheMovieDB/Config.xcconfig)
+* Create a *`Secrets.xcconfig`* file and place it in the root directory (TheMovieDB/Secrets.xcconfig)
 * Open the config file and add a variable named `API_KEY` to store the token of the API (*`API_KEY = iOiJQUzI1NiIsInppcCI6IkdaSV...`*)
 * Press `Command + U` to run all the tests suite
 * Build and run the project in the simulator
